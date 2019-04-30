@@ -1,5 +1,6 @@
 import logging
 
+from .simple_bqplot_image import simple_imshow
 from .viewer import Viewer
 
 logging.basicConfig(filename='/tmp/vizapp.log',
@@ -16,7 +17,7 @@ class ViewerND(Viewer):
         super().__init__(*args, **kwargs)
 
         self._cube = self._app.load_data(filename)[0]
-        self._v3d = self._app.imshow(data=self._cube)
+        self._v3d = simple_imshow(self._app, data=self._cube)
 
     def show(self):
         return self._v3d.main_widget
