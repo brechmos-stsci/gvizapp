@@ -6,7 +6,7 @@ from ..viewer1d import Viewer1D
 
 class CubeViz:
 
-    def __init__(self, vizapp):
+    def __init__(self, filename, vizapp):
 
         self._vizapp = vizapp
 
@@ -14,7 +14,7 @@ class CubeViz:
 
         self._create_menubar()
 
-        self._v3d = ViewerND(self._vizapp)
+        self._v3d = ViewerND(filename, self._vizapp)
 
         self._main_box.widgets = [self._menu_bar, self._v3d]
 

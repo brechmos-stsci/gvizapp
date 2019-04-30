@@ -12,10 +12,10 @@ logger = logging.getLogger('viewernd')
 
 class ViewerND(Viewer):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, filename, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self._cube = self._app.load_data('/home/craig/Documents/STScI/cubeviz/data/manga-7495-12704-LOGCUBE_fixed.fits.gz')[0]
+        self._cube = self._app.load_data(filename)[0]
         self._v3d = self._app.imshow(data=self._cube)
 
     def show(self):
