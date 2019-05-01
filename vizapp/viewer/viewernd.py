@@ -4,10 +4,10 @@ from .simple_bqplot_image import simple_imshow
 from .viewer import Viewer
 
 logging.basicConfig(filename='/tmp/vizapp.log',
-                            filemode='a',
-                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                            datefmt='%H:%M:%S',
-                            level=logging.DEBUG)
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.DEBUG)
 logger = logging.getLogger('viewernd')
 
 
