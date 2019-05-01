@@ -10,6 +10,8 @@ class CubeViz:
 
         self._vizapp = vizapp
 
+        self._vizapp.glue_app.load_data(filename)
+
         #
         #  Create File Menu
         #
@@ -36,9 +38,10 @@ class CubeViz:
         self._menu_bar = widgets.HBox([self._menu_bar_file, self._menu_bar_viewer])
         self._menu_bar.box_style = 'success'
 
-        self._v3d = ViewerND(filename, self._vizapp)
+        self._v1d = Viewer1D(self._vizapp)
+        self._v3d = ViewerND(self._vizapp)
 
-        self._main_box = widgets.VBox([self._menu_bar, self._v3d.show()], layout=widgets.Layout(margin='0 100px 0 0'))
+        self._main_box = widgets.VBox([self._menu_bar, widgets.HBox([self._v3d.show(), self._v1d.show()])])
 
     def _on_change_menu_bar_file(self, change):
         print(change)

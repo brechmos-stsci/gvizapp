@@ -13,11 +13,10 @@ logger = logging.getLogger('viewernd')
 
 class ViewerND(Viewer):
 
-    def __init__(self, filename, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self._cube = self._app.load_data(filename)[0]
-        self._v3d = simple_imshow(self._app, data=self._cube)
+        self._v3d = simple_imshow(self._glue_app, data=self._glue_app.data_collection[0])
 
     def show(self):
         return self._v3d.main_widget

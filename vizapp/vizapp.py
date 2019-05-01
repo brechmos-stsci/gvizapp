@@ -3,6 +3,8 @@ import logging
 
 import numpy as np
 import scipy.signal
+import glue_jupyter as gj
+
 
 logging.basicConfig(filename='/tmp/vizapp.log',
                             filemode='a',
@@ -15,6 +17,9 @@ logger = logging.getLogger('vizapp')
 class VizApp:
 
     def __init__(self):
+
+
+        self._glue_app = gj.jglue()
 
         self._history = []
 
@@ -36,6 +41,11 @@ class VizApp:
         self.add_1d_processing("Hamming Smoothing", np.convolve, 'a', (('mode', 'valid'), ('w', np.hamming(3))))
         self.add_1d_processing("Bartlett Smoothing", np.convolve, 'a', (('mode', 'valid'), ('w', np.bartlett(3))))
         self.add_1d_processing("Blackman Smoothing", np.convolve, 'a', (('mode', 'valid'), ('w', np.blackman(3))))
+
+
+    @property
+    def glue_app(self):
+        return self._glue_app
 
     # ---------------------------------------------------------------
     #
@@ -173,6 +183,9 @@ class VizApp:
             self._2d_data[name] = data
         if len(data.shape) == 1:
             self._1d_data[name] = data
+
+        # TODO: Refactor this
+        self._glue_app.add_data(data)
 
     def get_data(self, name):
         """
