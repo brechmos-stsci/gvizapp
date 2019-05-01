@@ -1,39 +1,35 @@
-# This provides a simplified version of the bqplot image viewer
+# This provides a simplified version of the bqplot profile viewer
 
 from ipywidgets import Button, VBox, HBox
 
 from glue.core.application_base import Application
-from glue_jupyter.bqplot.image import BqplotImageView
+from glue_jupyter.bqplot.profile import BqplotProfileView
 from glue_jupyter.widgets import LinkedDropdown
 from glue_jupyter.common.slice_helpers import MultiSliceWidgetHelper
 
-__all__ = ['SimpleBqplotImageViewer', 'simple_imshow']
+__all__ = ['SimpleBqplotProfileViewer', 'simple_profile']
 
 
-def simple_imshow(app, data=None):
-    viewer = Application.new_data_viewer(app, SimpleBqplotImageViewer)
+def simple_profile(app, data=None):
+    viewer = Application.new_data_viewer(app, SimpleBqplotProfileViewer)
     if data is not None:
         viewer.add_data(data)
     return viewer
 
 
-class SimpleBqplotImageViewer(BqplotImageView):
+class SimpleBqplotProfileViewer(BqplotProfileView):
 
     def __init__(self, *args, **kwargs):
 
-        # Set up the default image viewer
+        # Set up the default profile viewer
         super().__init__(*args, **kwargs)
 
-        # Fix the figure size and make the figure aspect ratio square
-        self.figure.layout.width = '400px'
+        # Fix the figure size
+        self.figure.layout.width = '600px'
         self.figure.layout.height = '400px'
 
         # Make sure the selection toolbar is centered
         self.widget_toolbar.layout.justify_content = 'center'
-
-        # Set up sliders for slices
-        self.slice_layout = VBox()
-        self.slice_helper = MultiSliceWidgetHelper(self.state, self.slice_layout)
 
         # Set button to toggle advanced mode
         self.advanced_button = Button(description='Show advanced')
@@ -42,7 +38,7 @@ class SimpleBqplotImageViewer(BqplotImageView):
         # Set up layouts and override main_widgets
         self.top_layout = HBox([], layout={'justify_content': 'center'})
         self.middle_layout = HBox([self.figure], layout={'justify_content': 'center'})
-        self.bottom_layout = HBox([self.slice_layout, self.advanced_button], layout={'justify_content': 'center'})
+        self.bottom_layout = HBox([self.advanced_button], layout={'justify_content': 'center'})
         self.main_widget.children = (self.widget_toolbar, self.top_layout, self.middle_layout, self.bottom_layout, self.output_widget)
 
         # Default to basic mode
